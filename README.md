@@ -20,7 +20,7 @@ Procedure tri_selection (@t:tab; n:entier)
 Début
     Pour i de 0 à n-2 faire
         pMin ← i
-        Pour j de i+1 à n-1 faire
+        Pour j de i+1 à n-1 faire                                                         
             Si (t[j] < t[pMin]) alors
                 pMin ← j
             Fin si
@@ -32,3 +32,16 @@ Début
         Fin si
     Fin pour                                                      
 Fin
+
+
+## Tableau de Déclaration des Objets (TDOL)
+
+| Objet | Type/Nature | Rôle                          |
+|-------|-------------|-------------------------------|
+| i     | entier | Indice de la position courante     |
+| j     | entier | Indice de recherche du minimum     |
+| pMin  | entier | Position de l'élément minimum      |
+| aux   | entier | Variable temporaire pour l'échange |
+
+
+
