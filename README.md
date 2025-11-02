@@ -39,7 +39,7 @@ Fin
 | Objet | Type/Nature | Rôle                          |
 |-------|-------------|-------------------------------|
 | i     | entier | Indice de la position courante     |
-| j     | entier | Indice de recherche du minimum     |
+| j     | entier | Indice de recherche du minimum     |                
 | pMin  | entier | Position de l'élément minimum      |
 | aux   | entier | Variable temporaire pour l'échange |
 
