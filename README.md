@@ -15,7 +15,7 @@ le tableau avant le tri
 
 le tableau après le tri
 1|2|7|9|
-ALGORITHME:
+ALGORITHME de tri:
 Procedure tri_selection (@t:tab; n:entier)
 Début
     Pour i de 0 à n-2 faire
