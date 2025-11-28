@@ -16,32 +16,16 @@ le tableau avant le tri
 le tableau après le tri
 1|2|7|9|
 ALGORITHME de tri:
-Procedure tri_selection (@t:tab; n:entier)
-Début
-    Pour i de 0 à n-2 faire
-        pMin ← i
-        Pour j de i+1 à n-1 faire                                                         
-            Si (t[j] < t[pMin]) alors
-                pMin ← j
-            Fin si
-        Fin pour
-        Si (i ≠ pMin) alors
-            aux ← t[i]
-            t[i] ← t[pMin]
-            t[pMin] ← aux
-        Fin si
-    Fin pour                                                      
-Fin
 
 
-## Tableau de Déclaration des Objets (TDOL)
+## Tableau de Déclaration des Objets locaux (TDOL)
 
-| Objet | Type/Nature | Rôle                          |
+| Objet | Type/Nature |                          |
 |-------|-------------|-------------------------------|
-| i     | entier | Indice de la position courante     |
-| j     | entier | Indice de recherche du minimum     |                
-| pMin  | entier | Position de l'élément minimum      |
-| aux   | entier | Variable temporaire pour l'échange |
+| i     | entier |     
+| j     | entier | 
+| pMin  | entier |     
+| aux   | entier | 
 **Note Importante sur la Variable `aux` :**
 
 La déclaration de `aux` **dépend du type des éléments dans le tableau `t`**.
