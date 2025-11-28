@@ -20,12 +20,17 @@ ALGORITHME de tri:
 
 ## Tableau de Déclaration des Objets locaux (TDOL)
 
-| Objet | Type/Nature |                          |
-|-------|-------------|-------------------------------|
+| Objet | Type/Nature |                          
+|-------|-------------|
 | i     | entier |     
 | j     | entier | 
 | pMin  | entier |     
 | aux   | entier | 
+
+
+
+
+
 **Note Importante sur la Variable `aux` :**
 
 La déclaration de `aux` **dépend du type des éléments dans le tableau `t`**.
