@@ -1,59 +1,26 @@
 # Algorithme de Tri par Sélection
-par{amineTNYT}
 
-Programme Python qui implémente le tri par sélection pour ordonner un tableau d'entiers.
+**Par [AmineTNYT](https://github.com/AmineTNYT)**
 
-## Exemple d'exécution :
-Donner le taille du tableau: 4
-t[0]=: 9
-t[1]=: 2
-t[2]=: 7
-t[3]=: 1
+Le tri par sélection est l’une des premières méthodes de tri que les élèves de 3ᵉ et 4ᵉ année en section informatique et scientifique doivent maîtriser. Cet algorithme, bien que simple, pose les bases essentielles de l’algorithmique : recherche du minimum, échanges de valeurs et utilisation de boucles imbriquées.
 
- 
-le tableau avant le tri
-9|2|7|1|
+## 📊 Tri par Sélection - Ressources Complètes
 
-le tableau après le tri
-1|2|7|9|
-ALGORITHME de tri:
+### 📁 Fichiers à télécharger
 
+Pour étudier et tester le tri par sélection, voici les 3 fichiers essentiels disponibles dans ce dépôt :
 
-## Tableau de Déclaration des Objets locaux (TDOL)
+- [`tri_selection.py`](tri_selection.py) → Le code Python complet de l'algorithme
+- [`tri_selection.txt`](tri_selection.txt) → L'algorithme détaillé en pseudo-code
+- [`tri_selection.html`](tri_selection.html) → Visualisation interactive du tri (animation pas à pas avec couleurs)
 
-| Objet | Type/Nature |                          
-|-------|-------------|
-| i     | entier |     
-| j     | entier | 
-| pMin  | entier |     
-| aux   | entier | 
+**Conseil** : Ouvrez `tri_selection.html` dans votre navigateur pour une compréhension visuelle et interactive exceptionnelle de l'algorithme !
 
+### 🎥 Démo Vidéo
+[![Tri par Sélection Animé - Cliquez pour regarder](https://img.youtube.com/vi/r7g38PYUIAU/maxresdefault.jpg)](https://www.youtube.com/watch?v=r7g38PYUIAU)
 
+*Vidéo explicative complète avec démonstration de l'animation interactive, explication du code et du rôle de `pMin` et `aux`.*
 
+---
 
-
-**Note Importante sur la Variable `aux` :**
-
-La déclaration de `aux` **dépend du type des éléments dans le tableau `t`**.
-
-Si `t` contient :
-- **Entiers** → `aux` doit être `entier`
-- **Caractères** → `aux` doit être `caractère`
-- **Chaînes de caractères** → `aux` doit être `chaine`
-- **Nombres réels** → `aux` doit être `réel`
-- **Objets personnalisés** → `aux` doit correspondre au type d'objet
-
-**Exemple :**
-```pascal
-// Pour un tableau d'entiers
-aux: entier
-
-// Pour un tableau de caractères
-aux: caractère
-
-// Pour un tableau de nombres réels
-aux: réel
-```
-
-**Toujours déclarer `aux` avec le même type de données que les éléments du tableau** pour éviter les erreurs de type lors des opérations d'échange.
-
+**Créé par Amine** · GitHub : [@AmineTNYT](https://github.com/AmineTNYT)
