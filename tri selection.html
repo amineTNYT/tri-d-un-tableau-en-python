@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tri par Sélection - Animation</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding-bottom: 120px;
+        position: relative;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background: linear-gradient(135deg, #e0e6ed, #c0d4e8);
+        color: #2c3e50;
+    }
+
+    #particles {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    h1 { 
+        color: #2c3e50; 
+        margin: 30px 0 20px;
+        font-size: 32px;
+        padding: 0 10px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .buttons-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin: 20px;
+    }
+
+    button {
+        padding: 14px 28px;
+        font-size: 18px;
+        cursor: pointer;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s;
+    }
+    button:hover:not(:disabled) { 
+        background: #2980b9; 
+        transform: translateY(-3px);
+    }
+    button:disabled { 
+        background: #95a5a6; 
+        cursor: not-allowed; 
+    }
+
+    #speedBtn {
+        background: #9b59b6;
+    }
+    #speedBtn:hover:not(:disabled) {
+        background: #8e44ad;
+    }
+
+    table { 
+        margin: 30px auto; 
+        border-collapse: separate; 
+        border-spacing: 8px 0; 
+    }
+    td {
+        width: 60px;
+        height: 60px;
+        background: #3498db;
+        color: white;
+        border-radius: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        position: relative;
+        transition: all 0.5s ease;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    .unsorted { background: #3498db; }
+    .comparing { background: orange; transform: scale(1.1); }
+    .current-min { background: #e74c3c; transform: scale(1.15); }
+    .to-swap { background: #9b59b6; animation: pulse 1s infinite; }
+    .sorted { background: #27ae60; }
+
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    .arrow {
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 38px;
+        color: #e74c3c;
+        animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+
+    #steps {
+        margin: 30px 10px;
+        max-width: 95%;
+        font-size: 18px;
+        min-height: 80px;
+        padding: 20px;
+        background: rgba(255,255,255,0.9);
+        border-radius: 12px;
+        color: #2c3e50;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .codes-container { 
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        gap: 30px; 
+        margin: 40px 10px; 
+    }
+    .algo, .code {
+        background: rgba(44,62,80,0.95);
+        color: #1abc9c;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: left;
+        width: 90%;
+        max-width: 600px;
+        font-family: 'Courier New', monospace;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        font-size: 17px;
+        line-height: 1.6;
+    }
+    .algo pre, .code pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+    .algo h3, .code strong { 
+        color: #f39c12; 
+        text-align: center; 
+        margin-bottom: 20px; 
+        font-size: 22px; 
+    }
+
+    .variables-table {
+        width: 90%;
+        max-width: 600px;
+        margin: 40px auto;
+        border-collapse: collapse;
+        background: rgba(255,255,255,0.95);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .variables-table caption {
+        caption-side: top;
+        font-size: 19px;
+        font-weight: bold;
+        padding: 12px;
+        background: #34495e;
+        color: white;
+    }
+    .variables-table th, .variables-table td {
+        border: 2px solid #34495e;
+        padding: 12px;
+        text-align: center;
+        font-size: 16px;
+    }
+    .variables-table th { background: #34495e; color: white; }
+    .variables-table td { background: #ecf0f1; color: #2c3e50; }
+    .tdol-legend {
+        font-size: 15px;
+        color: #7f8c8d;
+        margin-top: 10px;
+        padding: 0 10px;
+        font-style: italic;
+    }
+
+    .watermark {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.85);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: bold;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        border: 2px solid #1abc9c;
+        transition: all 0.4s ease;
+        white-space: nowrap;
+    }
+    .watermark:hover {
+        transform: translateX(-50%) scale(1.1);
+        background: rgba(0,0,0,0.95);
+        box-shadow: 0 10px 30px rgba(26,188,156,0.4);
+        border-color: #00d4aa;
+    }
+    .watermark a { color: #1abc9c; text-decoration: none; transition: color 0.3s; }
+    .watermark a:hover { color: #00d4aa; text-decoration: underline; }
+
+    /* Optimisations mobiles spécifiques */
+    @media (max-width: 768px) {
+        h1 { font-size: 28px; }
+        td { width: 50px; height: 50px; font-size: 20px; }
+        .arrow { font-size: 32px; top: -40px; }
+        #steps { font-size: 17px; padding: 15px; }
+        .algo, .code { font-size: 15px; padding: 20px; }
+        button { font-size: 17px; padding: 12px 24px; }
+        .watermark { 
+            bottom: 10px;
+            font-size: 14px;
+            padding: 10px 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        td { width: 45px; height: 45px; font-size: 18px; border-spacing: 6px 0; }
+        .arrow { font-size: 28px; }
+        h1 { font-size: 24px; }
+    }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<h1>Tri par Sélection (Selection Sort)</h1>
+
+<div class="buttons-container">
+    <button id="startBtn">Générer et Animer</button>
+    <button id="speedBtn">Vitesse : Lent (×1)</button>
+</div>
+
+<table><tr id="arrayRow"></tr></table>
+
+<div id="steps">Cliquez sur le bouton pour commencer l'animation.</div>
+
+<div class="codes-container">
+    <div class="algo">
+        <h3>Algorithme</h3>
+        <pre>
+procédure tri(t, n)
+Début
+    Pour i de 0 à n-2 faire
+        pMin ← i
+        Pour j de i+1 à n-1 faire
+            Si (t[j]< t[pMin]) alors
+                pMin ← j
+            Fin si
+        Fin pour
+        Si (i ≠ pMin) alors
+            aux ← t[i]
+            t[i] ← t[pMin]
+            t[pMin] ← aux
+        Fin si
+    Fin pour
+Fin
+<h3 id="a">Important:</h3><h4>La déclaration de "aux" dépend du type des éléments dans le tableau</h4>
+</pre>
+    </div>
+
+    <div class="code">
+        <strong>Implémentation en Python</strong>
+        <pre>
+def tri_selection(t, n):
+    for i in range(n-1):
+        pMin = i
+        for j in range(i+1, n):
+            if t[j] < t[pMin]:
+                pMin = j
+        if i != pMin:
+            aux = t[i]
+            t[i] = t[pMin]
+            t[pMin] = aux</pre>
+    </div>
+</div>
+
+<table class="variables-table">
+    <caption>Tableau TDOL</caption>
+    <thead>
+        <tr><th>Objet</th><th>Nature / Type</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>i, j, aux, pMin</td><td>entier</td></tr>
+    </tbody>
+</table>
+<div class="tdol-legend">Tableau des variables utilisées dans l'algorithme TDOL</div>
+
+<div class="watermark">
+    Créé par Amine · GitHub : <a href="https://github.com/AmineTNYT" target="_blank">AmineTNYT</a>
+</div>
+
+<script>
+// Particules (inchangées)
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+function createParticle() {
+    return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedY: Math.random() * 0.8 + 0.3,
+        opacity: Math.random() * 0.4 + 0.3
+    };
+}
+for (let i = 0; i < 60; i++) particles.push(createParticle());
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        p.y += p.speedY;
+        if (p.y > canvas.height) p.y = -10;
+    });
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+// Animation + vitesse (inchangée)
+const arrayRow = document.getElementById('arrayRow');
+const stepsDiv = document.getElementById('steps');
+const startBtn = document.getElementById('startBtn');
+const speedBtn = document.getElementById('speedBtn');
+let arr = [];
+let isAnimating = false;
+
+let baseDelay = 1000;
+let speedLevel = 1;
+
+speedBtn.onclick = () => {
+    if (speedLevel === 1) {
+        speedLevel = 2; baseDelay = 500; speedBtn.textContent = "Vitesse : Normal (×2)";
+    } else if (speedLevel === 2) {
+        speedLevel = 4; baseDelay = 250; speedBtn.textContent = "Vitesse : Rapide (×4)";
+    } else {
+        speedLevel = 1; baseDelay = 1000; speedBtn.textContent = "Vitesse : Lent (×1)";
+    }
+};
+
+function resetDisplay() {
+    arrayRow.innerHTML = '';
+    stepsDiv.innerHTML = 'Cliquez sur le bouton pour commencer l\'animation.';
+    document.querySelectorAll('.arrow').forEach(arrow => arrow.remove());
+}
+
+function generateArray() {
+    const length = 10;
+    arr = Array.from({length}, () => Math.floor(Math.random() * 90) + 10);
+    renderArray();
+}
+
+function renderArray() {
+    arrayRow.innerHTML = '';
+    arr.forEach((val, i) => {
+        const td = document.createElement('td');
+        td.textContent = val;
+        td.id = `cell${i}`;
+        td.className = 'unsorted';
+        arrayRow.appendChild(td);
+    });
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms / speedLevel));
+}
+
+async function animateSelectionSort() {
+    if (isAnimating) return;
+    isAnimating = true;
+    startBtn.disabled = true;
+    startBtn.textContent = "Animation en cours...";
+
+    resetDisplay();
+    generateArray();
+    const n = arr.length;
+    stepsDiv.innerHTML = "<strong>Tableau initial non trié</strong>";
+    await sleep(1500);
+
+    for (let i = 0; i < n - 1; i++) {
+        let minIdx = i;
+        document.getElementById(`cell${i}`).classList.add('comparing');
+
+        stepsDiv.innerHTML = `<strong>Étape ${i+1}</strong> : Recherche du minimum à partir de la position ${i}<br>
+                              pMin = ${i} (valeur actuelle : ${arr[i]})`;
+        await sleep(1500);
+
+        for (let j = i + 1; j < n; j++) {
+            document.getElementById(`cell${j}`).classList.add('comparing');
+            const arrow = document.createElement('div');
+            arrow.className = 'arrow';
+            arrow.textContent = '↓';
+            document.getElementById(`cell${j}`).appendChild(arrow);
+            await sleep(1000);
+
+            if (arr[j] < arr[minIdx]) {
+                if (minIdx !== i) {
+                    document.getElementById(`cell${minIdx}`).classList.remove('current-min');
+                }
+                minIdx = j;
+                document.getElementById(`cell${minIdx}`).classList.add('current-min');
+                stepsDiv.innerHTML += `<br>→ Nouveau minimum trouvé : ${arr[j]} à la position ${j}`;
+            }
+
+            document.getElementById(`cell${j}`).classList.remove('comparing');
+            arrow.remove();
+            await sleep(500);
+        }
+
+        if (minIdx !== i) {
+            document.getElementById(`cell${i}`).classList.add('to-swap');
+            document.getElementById(`cell${minIdx}`).classList.add('to-swap');
+            stepsDiv.innerHTML += `<br><br><strong>Échange nécessaire !</strong><br>
+                                  aux ← t[${i}] (${arr[i]})<br>
+                                  t[${i}] ← t[${minIdx}] (${arr[minIdx]})<br>
+                                  t[${minIdx}] ← aux`;
+            await sleep(2000);
+
+            [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+            document.getElementById(`cell${i}`).textContent = arr[i];
+            document.getElementById(`cell${minIdx}`).textContent = arr[minIdx];
+            await sleep(1000);
+
+            document.getElementById(`cell${i}`).classList.remove('to-swap');
+            document.getElementById(`cell${minIdx}`).classList.remove('to-swap');
+        } else {
+            stepsDiv.innerHTML += `<br><br>Aucun échange nécessaire (déjà au bon endroit)`;
+            await sleep(1500);
+        }
+
+        document.getElementById(`cell${i}`).classList.remove('comparing', 'current-min');
+        if (minIdx !== i) document.getElementById(`cell${minIdx}`).classList.remove('current-min');
+        document.getElementById(`cell${i}`).className = 'sorted';
+        await sleep(1000);
+    }
+
+    document.getElementById(`cell${n-1}`).className = 'sorted';
+    stepsDiv.innerHTML = "<strong>Tri terminé ! Le tableau est complètement trié.</strong>";
+
+    isAnimating = false;
+    startBtn.disabled = false;
+    startBtn.textContent = "Générer et Animer";
+}
+
+startBtn.onclick = animateSelectionSort;
+</script>
+
+</body>
+</html>
