@@ -1,6 +1,6 @@
-# Algorithme de Tri par Sélection
+#  Tri par Sélection
 
-**Par [AmineTNYT](https://github.com/AmineTNYT)**
+**Par AmineTNYT**
 
 Le tri par sélection est l’une des premières méthodes de tri que les élèves de 3ᵉ et 4ᵉ année en section informatique et scientifique doivent maîtriser. Cet algorithme, bien que simple, pose les bases essentielles de l’algorithmique : recherche du minimum, échanges de valeurs et utilisation de boucles imbriquées.
 
