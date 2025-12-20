@@ -10,6 +10,7 @@ t[1]=: 2
 t[2]=: 7
 t[3]=: 1
 
+ 
 le tableau avant le tri
 9|2|7|1|
 
@@ -55,5 +56,4 @@ aux: réel
 ```
 
 **Toujours déclarer `aux` avec le même type de données que les éléments du tableau** pour éviter les erreurs de type lors des opérations d'échange.
-
 
