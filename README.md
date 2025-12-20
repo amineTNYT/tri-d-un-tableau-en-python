@@ -11,7 +11,7 @@ Le tri par sélection est l’une des premières méthodes de tri que les élèv
 Pour étudier et tester le tri par sélection, voici les 3 fichiers essentiels disponibles dans ce dépôt :
 Voici les fichiers disponibles dans ce dépôt :
 
-- [`python_code.py`](python_code.py) → Code Python complet et commenté de l'algorithme de tri par sélection
+- [`python code.py`](python code.py) → Code Python complet et commenté de l'algorithme de tri par sélection
 - [`procédure tri.txt`](procédure%20tri.txt) → Algorithme détaillé en pseudo-code (format TDOL officiel)
 - [`tri selection.html`](tri%20selection.html) → **Animation interactive ultra complète** (vitesse réglable, couleurs, explications en temps réel, particules en fond)
 - 
