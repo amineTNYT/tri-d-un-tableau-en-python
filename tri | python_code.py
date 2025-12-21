@@ -1,7 +1,7 @@
 from numpy import array
 
 # procédure pour saisir et valider la taille du tableau
-def sasir():
+def saisir():
     n=int(input("Donner le taille du tableau=:"))
     while not (3<=n<=5):
         n=int(input("Donner taille du tableau=:"))
@@ -35,17 +35,15 @@ def afficher(t,n):
    
  
 # Programme Principal
-n=sasir()  # Saisie de la taille du tableau
+n=saisir()  # Saisie de la taille du tableau
 t=array([int()]*n)  # Création du tableau avec NumPy
 remplir(t,n)  # Remplissage du tableau
 
 # Affichage du tableau avant le tri
 print("le tableau avant le tri")
 afficher(t,n)
-print()
-
+print()#pour retourner a la ligne
 tri(t,n)  # Tri du tableau
-
 # Affichage du tableau après le tri
 print("le tableau aprés le tri")
 afficher(t,n)
