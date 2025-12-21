@@ -11,7 +11,7 @@ Pour étudier et tester le tri par sélection, voici les 3 fichiers essentiels d
 
 - [`tri | python_code.py`](tri%20%7C%20python_code.py) → Code Python complet et commenté de l'algorithme de tri par sélection
 - [`procédure tri.txt`](procédure%20tri.txt) → Algorithme détaillé en pseudo-code (format TDOL officiel)
-- [`tri selection.html`](tri%20selection.html) → **Animation interactive ultra complète** (vitesse réglable, couleurs, explications en temps réel, particules en fond)
+- [`tri selection.html`](tri%20selection.html) → **Animation interactive ultra complète** (vitesse réglable, couleurs, explications en temps réel)
   
 **Astuce** : Cliquez sur `tri_selection.html` et ouvrez-le dans votre navigateur pour voir l'animation pas à pas avec couleurs, contrôle de vitesse et explications.
 
